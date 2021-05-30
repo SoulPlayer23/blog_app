@@ -29,6 +29,6 @@ class Post {
 
   //Single object format conversion
   Map toMap() {
-    return {BODY: body, TITLE: title, DATE: date};
+    return {BODY: body, TITLE: title, DATE: date, KEY: key};
   }
 }

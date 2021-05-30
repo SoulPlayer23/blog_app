@@ -3,12 +3,16 @@ import 'package:blog_app/models/post.dart';
 import 'package:blog_app/screens/home.dart';
 import 'package:flutter/material.dart';
 
-class AddPost extends StatefulWidget {
+class EditPost extends StatefulWidget {
+  final Post post;
+
+  EditPost(this.post);
+
   @override
-  _AddPostState createState() => _AddPostState();
+  _EditPostState createState() => _EditPostState();
 }
 
-class _AddPostState extends State<AddPost> {
+class _EditPostState extends State<EditPost> {
   final GlobalKey<FormState> formKey = new GlobalKey();
   Post post = Post(0, "", "");
 
@@ -16,7 +20,7 @@ class _AddPostState extends State<AddPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add a post"),
+        title: Text("Edit post"),
         backgroundColor: Colors.black,
         elevation: 0.0,
       ),
@@ -30,12 +34,13 @@ class _AddPostState extends State<AddPost> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  initialValue: widget.post.title,
                   decoration: InputDecoration(
                     labelText: "Post Title",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.0)),
                   ),
-                  onSaved: (val) => post.title = val,
+                  onSaved: (val) => widget.post.title = val,
                   // ignore: missing_return
                   validator: (val) {
                     if (val.isEmpty) {
@@ -49,12 +54,13 @@ class _AddPostState extends State<AddPost> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  initialValue: widget.post.body,
                   decoration: InputDecoration(
                     labelText: "Post Body",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.0)),
                   ),
-                  onSaved: (val) => post.body = val,
+                  onSaved: (val) => widget.post.body = val,
                   // ignore: missing_return
                   validator: (val) {
                     if (val.isEmpty) {
@@ -68,14 +74,16 @@ class _AddPostState extends State<AddPost> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           insertPost();
-          Navigator.pop(context);
+          //Navigator.pop(context);
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
         },
         child: Icon(
-          Icons.add,
+          Icons.edit,
           color: Colors.white,
         ),
         backgroundColor: Colors.red,
-        tooltip: "Add a post",
+        tooltip: "Edit post",
       ),
     );
   }
@@ -85,9 +93,9 @@ class _AddPostState extends State<AddPost> {
     if (form.validate()) {
       form.save();
       form.reset();
-      post.date = DateTime.now().millisecondsSinceEpoch;
-      PostService postService = PostService(post.toMap());
-      postService.addPost();
+      widget.post.date = DateTime.now().millisecondsSinceEpoch;
+      PostService postService = PostService(widget.post.toMap());
+      postService.updatePost();
     }
   }
 }
