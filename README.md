@@ -5,7 +5,7 @@ A new Flutter project.
 ## UI
 
 
-![Screenshot_1632627191](https://user-images.githubusercontent.com/60187111/134792487-03f553ad-c65d-4b3a-b64b-1f02e1e307ea.png)
+<img src="https://user-images.githubusercontent.com/60187111/134792487-03f553ad-c65d-4b3a-b64b-1f02e1e307ea.png" width="200" height="400" />
 
 ![Screenshot_1632627210](https://user-images.githubusercontent.com/60187111/134792492-7352497b-8d9f-4bfd-a787-f2958dd08d04.png)
 
